@@ -1,24 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import LoginForm from "./LoginForm";
+import AuthService from "./AuthService";
 
 function App() {
+  const [token, setToken] = useState<string | null>(
+    localStorage.getItem("token")
+  );
+
+  const handleLogin = async (email: string, password: string) => {
+    const authService = new AuthService();
+    const token = await authService.login(email, password);
+    localStorage.setItem("token", token);
+    setToken(token);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {token ? <p>You are logged in!</p> : <LoginForm onSubmit={handleLogin} />}
     </div>
   );
 }
