@@ -1,8 +1,7 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
-import LoginForm from "./App";
+import { Login } from "./Login";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
-root.render(<LoginForm />);
+root.render(<Login />);
